@@ -1,0 +1,269 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #fdf6e3;
+  text-align: center;
+}
+
+.title {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 3.5rem;
+  color: #dce775;
+  letter-spacing: 4px;
+  margin-top: 40px;
+  margin: 0;
+  text-shadow: 2px 2px 0 #333, 4px 4px 0 #000;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  font-style: italic;
+  color: #777;
+  margin-bottom: 20px;
+}
+
+.gameHeader {
+  background-color:transparent;
+  margin: bottom 0px;
+}
+
+.gameTitle {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 3.5rem;
+  color: #dce775;
+  letter-spacing: 4px;
+  margin: 0;
+  text-shadow: 2px 2px 0 #333, 4px 4px 0 #000;
+}
+
+#status {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #eee;
+  margin-top: 5px;
+}
+
+.centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Push content to top */
+  padding-top: 60px; /* Adjust how far down you want it */
+  height: 100vh;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  background: #103a1d;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+
+.options label {
+  font-size: 1rem;
+  color: white;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.options select {
+  font-size: 1rem;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  width: 180px;
+  text-align: center;
+  cursor: pointer;
+}
+
+#startBtn:hover,
+#restartBtn:hover {
+  background-color: #cddc39;
+}
+
+#gameCanvas {
+
+  display: block;
+  border: 6px solid #333;
+  border-radius: 12px;
+  background-color: #103a1d; /* Dark green board */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+#gameCanvas.loaded {
+  opacity: 1;
+  transform: scale(1);
+}
+
+#status {
+  font-size: 18px;
+  color: #333;
+  margin: 10px;
+}
+
+.sideArea {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+  padding: 20px;
+  flex-wrap: wrap;
+}
+
+.reserve, .captured {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
+  padding: 10px;
+  min-height: 40px;
+  border: 2px dashed #ccc;
+  margin: 10px auto;
+  width: 150px;
+  background: #f0f0f0;
+  border-radius: 8px;
+}
+
+.reserve div, .captured div {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.reserve .black,
+.captured .black {
+  background-color: black;
+}
+
+.reserve .white,
+.captured .white {
+  background-color: white;
+  border: 1px solid #333;
+}
+
+.gameLayout {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px; /* Reduce space between board and side boxes */
+  margin-top: 20px;
+  flex-wrap: nowrap;
+}
+
+.sideColumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; /* space between reserve and captured vertically */
+}
+
+.reserve.vertical,
+.captured.vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: auto;
+  height: auto;
+  min-height: 100px;
+  padding: 10px;
+  background: #f0f0f0;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+}
+
+.reserve.vertical div,
+.captured.vertical div {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.reserve .black,
+.captured .black {
+  background-color: black;
+}
+
+.reserve .white,
+.captured .white {
+  background-color: white;
+  border: 1px solid #333;
+}
+
+.gameContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.buttonGroup {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+#gamePage {
+  transform: translateY(50px);
+  opacity: 0;
+  transition: transform 0.6s ease, opacity 0.6s ease;
+}
+
+#gamePage.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.buttonGroup {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.buttonGroup button {
+  background-color: #dce775;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #333;
+ min-width: 180px;
+  height: 50px;                  /* ✅ Consistent height */
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s ease;
+  font-family: inherit;
+  font-weight: bold;
+  display: flex;                 /* ✅ Align icon + text cleanly */
+  justify-content: center;
+  align-items: center;
+  gap: 8px;                      /* space between icon and text */
+}
+
+.buttonGroup button:hover {
+  background-color: #cddc39;
+}
+
+#startBtn {
+ margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #dce775;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #333;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s ease;
+}

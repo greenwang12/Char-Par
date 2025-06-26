@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Char Par ~ Nine Men's Morris</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="homePage" class="centered">
+    <h1 class="title">Char Par</h1>
+    <p class="subtitle">~ Nine Men's Morris ~</p>
+    <div class="options">
+      <label>Choose Mode:</label>
+      <select id="gameMode">
+        <option value="2p">2 Players</option>
+        <option value="1p">1 Player vs AI</option>
+      </select>
+
+      <label>Choose Your Color:</label>
+      <select id="playerColor">
+        <option value="black">Black</option>
+        <option value="white">White</option>
+      </select>
+
+      <button id="startBtn">Start Game</button>
+    </div>
+  </div>
+
+  <div id="gamePage" style="display:none;">
+    <div class="gameHeader">
+      <h1 class="gameTitle">Char Par</h1>
+      <p id="status">Turn: Black</p>
+    </div>
+
+    <div class="gameContainer">
+      <div class="gameLayout">
+        <!-- Black Side -->
+        <div class="sideColumn">
+          <div>
+            <h3>Black</h3>
+            <div id="blackReserve" class="reserve vertical"></div>
+          </div>
+          <div>
+            <h4>Captured</h4>
+            <div id="blackCaptured" class="captured vertical"></div>
+          </div>
+        </div>
+
+        <!-- Game Board -->
+        <canvas id="gameCanvas" width="600" height="600"></canvas>
+
+        <!-- White Side -->
+        <div class="sideColumn">
+          <div>
+            <h3>White</h3>
+            <div id="whiteReserve" class="reserve vertical"></div>
+          </div>
+          <div>
+            <h4>Captured</h4>
+            <div id="whiteCaptured" class="captured vertical"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Buttons centered below the board -->
+      <div class="buttonGroup">
+        <button id="restartBtn">Restart Game</button>
+       <button id="undoBtn">Undo</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Win Modal -->
+  <div id="winModal" class="modal" style="display:none;">
+    <div class="modalContent">
+      <h2 id="winMessage">Player Wins!</h2>
+      <button onclick="window.location.reload()">Play Again</button>
+    </div>
+  </div>
+
+  <!-- Sound Effect Placeholders (optional mp3 files) -->
+  <audio id="sndPlace" src="sounds/place.mp3"></audio>
+  <audio id="sndSelect" src="sounds/select.mp3"></audio>
+  <audio id="sndMove" src="sounds/move.mp3"></audio>
+  <audio id="sndMill" src="sounds/mill.mp3"></audio>
+  <audio id="sndRemove" src="sounds/remove.mp3"></audio>
+  <audio id="sndWin" src="sounds/win.mp3"></audio>
+  <audio id="sndInvalid" src="sounds/invalid.mp3"></audio>
+  <audio id="sndSlideBoard" src="sounds/slideBoard.mp3"></audio>
+  <audio id="sndSlidePiece" src="sounds/slidePiece.mp3"></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
