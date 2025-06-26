@@ -205,13 +205,6 @@ body {
   align-items: center;
 }
 
-.buttonGroup {
-  margin-top: 20px;
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-}
-
 #gamePage {
   transform: translateY(50px);
   opacity: 0;
@@ -266,4 +259,18 @@ body {
   color: #333;
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
   transition: background-color 0.2s ease;
+}
+
+#player2ColorContainer[style*="display: none"] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#player2ColorContainer {
+  transition: opacity 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;    /* center horizontally */
+  justify-content: center;
+  gap: 8px;               /* spacing between label and select */
 }

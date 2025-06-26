@@ -18,12 +18,19 @@
         <option value="1p">1 Player vs AI</option>
       </select>
 
-      <label>Choose Your Color:</label>
-      <select id="playerColor">
-        <option value="black">Black</option>
-        <option value="white">White</option>
-      </select>
+    <label id="player1ColorLabel">Choose 1st Player Color:</label>
+    <select id="player1Color">
+      <option value="black">Black</option>
+      <option value="white">White</option>
+    </select>
 
+    <div id="player2ColorContainer" style="display: none;">
+  <label for="player2Color" id="player2ColorLabel">Choose 2nd Player Color:</label><br><br>
+  <select id="player2Color">
+    <option value="white">White</option>
+    <option value="black">Black</option>
+  </select>
+</div>
       <button id="startBtn">Start Game</button>
     </div>
   </div>
@@ -35,42 +42,44 @@
     </div>
 
     <div class="gameContainer">
-      <div class="gameLayout">
-        <!-- Black Side -->
-        <div class="sideColumn">
-          <div>
-            <h3>Black</h3>
-            <div id="blackReserve" class="reserve vertical"></div>
-          </div>
-          <div>
-            <h4>Captured</h4>
-            <div id="blackCaptured" class="captured vertical"></div>
-          </div>
-        </div>
-
-        <!-- Game Board -->
+      <div class="gameLayout" id="gameLayout">
         <canvas id="gameCanvas" width="600" height="600"></canvas>
-
-        <!-- White Side -->
-        <div class="sideColumn">
-          <div>
-            <h3>White</h3>
-            <div id="whiteReserve" class="reserve vertical"></div>
-          </div>
-          <div>
-            <h4>Captured</h4>
-            <div id="whiteCaptured" class="captured vertical"></div>
-          </div>
-        </div>
+        <!-- Side columns will be inserted dynamically here -->
       </div>
 
-      <!-- Buttons centered below the board -->
       <div class="buttonGroup">
         <button id="restartBtn">Restart Game</button>
-       <button id="undoBtn">Undo</button>
+        <button id="undoBtn">Undo</button>
       </div>
     </div>
   </div>
+
+  <!-- Templates for dynamic layout -->
+  <template id="blackPanel">
+    <div class="sideColumn" id="blackSide">
+      <div>
+        <h3>Black</h3>
+        <div id="blackReserve" class="reserve vertical"></div>
+      </div>
+      <div>
+        <h4>Captured</h4>
+        <div id="blackCaptured" class="captured vertical"></div>
+      </div>
+    </div>
+  </template>
+
+  <template id="whitePanel">
+    <div class="sideColumn" id="whiteSide">
+      <div>
+        <h3>White</h3>
+        <div id="whiteReserve" class="reserve vertical"></div>
+      </div>
+      <div>
+        <h4>Captured</h4>
+        <div id="whiteCaptured" class="captured vertical"></div>
+      </div>
+    </div>
+  </template>
 
   <!-- Win Modal -->
   <div id="winModal" class="modal" style="display:none;">
@@ -80,7 +89,7 @@
     </div>
   </div>
 
-  <!-- Sound Effect Placeholders (optional mp3 files) -->
+  <!-- Sound Effect Placeholders -->
   <audio id="sndPlace" src="sounds/place.mp3"></audio>
   <audio id="sndSelect" src="sounds/select.mp3"></audio>
   <audio id="sndMove" src="sounds/move.mp3"></audio>

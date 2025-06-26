@@ -7,11 +7,14 @@ const startBtn = document.getElementById("startBtn");
 const homePage = document.getElementById("homePage");
 const gamePage = document.getElementById("gamePage");
 const gameModeSelect = document.getElementById("gameMode");
-const playerColorSelect = document.getElementById("playerColor");
-const blackReserve = document.getElementById("blackReserve");
-const whiteReserve = document.getElementById("whiteReserve");
-const blackCaptured = document.getElementById("blackCaptured");
-const whiteCaptured = document.getElementById("whiteCaptured");
+const playerColorSelect = document.getElementById("player1Color"); // First Player
+const player2ColorContainer = document.getElementById("player2ColorContainer");
+const player2ColorSelect = document.getElementById("player2Color"); // Second Player
+
+let blackReserve = document.getElementById("blackReserve");
+let whiteReserve = document.getElementById("whiteReserve");
+let blackCaptured = document.getElementById("blackCaptured");
+let whiteCaptured = document.getElementById("whiteCaptured");
 
 const maxTokens = 9;
 const radius = 15;
@@ -226,33 +229,39 @@ function handleClick(e) {
   if (gameMode === "1p" && currentPlayer !== playerColorSelect.value) return;
 
   if (phase === "placement") {
-    if (board[index]) return playSound("sndInvalid");
-    saveHistory(); 
-    board[index] = currentPlayer;
-    placedTokens[currentPlayer]++;
-    playSound("sndPlace");
-    updateReserves();
-
-    if (checkMill(index, currentPlayer)) {
-      playSound("sndMill");
-      enterCapturePhase();
-      return;
-    }
-
-    if (placedTokens.black === maxTokens && placedTokens.white === maxTokens) {
-  phase = "movement";
-  selectedIndex = null;
-  drawBoard();
-  switchPlayer();
-  if (gameMode === "1p") maybeAIMove();
-  return;
-  }
-
-    switchPlayer();
-    drawBoard();
-    maybeAIMove();
+  if (placedTokens[currentPlayer] >= maxTokens) {
+    playSound("sndInvalid");
     return;
   }
+
+  if (board[index]) return playSound("sndInvalid");
+
+  saveHistory();
+  board[index] = currentPlayer;
+  placedTokens[currentPlayer]++;
+  playSound("sndPlace");
+  updateReserves();
+
+  if (checkMill(index, currentPlayer)) {
+    playSound("sndMill");
+    enterCapturePhase();
+    return;
+  }
+
+  if (placedTokens.black === maxTokens && placedTokens.white === maxTokens) {
+    phase = "movement";
+    selectedIndex = null;
+    drawBoard();
+    switchPlayer();
+    if (gameMode === "1p") maybeAIMove();
+    return;
+  }
+
+  switchPlayer();
+  drawBoard();
+  maybeAIMove();
+  return;
+}
 
   if (phase === "movement") {
     if (board[index] === currentPlayer) {
@@ -438,31 +447,82 @@ function maybeAIMove() {
 }
 
 startBtn.onclick = () => {
-  gameMode = gameModeSelect.value;
+   gameMode = gameModeSelect.value;
   currentPlayer = playerColorSelect.value;
-  aiColor = currentPlayer === "black" ? "white" : "black";
 
+  // Validate 2 Player mode color conflict
+  if (gameMode === "2p") {
+    const p1Color = playerColorSelect.value;
+    const p2Color = player2ColorSelect.value;
+
+    if (p1Color === p2Color) {
+      alert("Both players cannot have the same color. Please choose different colors.");
+      return;
+    }
+  }
+
+  // Set AI color if in 1 Player mode
+  if (gameMode === "1p") {
+    aiColor = currentPlayer === "black" ? "white" : "black";
+  } else {
+    aiColor = null;
+  }
+
+  // Reset game state
   board = Array(24).fill(null);
   selectedIndex = null;
   placedTokens = { black: 0, white: 0 };
   capturedTokens = { black: 0, white: 0 };
   phase = "placement";
   highlighted = [];
+  history = [];
 
+  // Show game page
   homePage.style.display = "none";
   gamePage.style.display = "block";
   void gamePage.offsetWidth;
   gamePage.classList.add("show");
 
+  // Setup layout
+  const gameLayout = document.getElementById("gameLayout");
+  const canvas = document.getElementById("gameCanvas");
+
+  // Clone templates
+  const blackPanel = document.getElementById("blackPanel").content.cloneNode(true);
+  const whitePanel = document.getElementById("whitePanel").content.cloneNode(true);
+
+  // Clear previous layout
+  while (gameLayout.firstChild) {
+    gameLayout.removeChild(gameLayout.firstChild);
+  }
+
+  // Append based on player color
+  if (currentPlayer === "black") {
+    gameLayout.appendChild(blackPanel);
+    gameLayout.appendChild(canvas);
+    gameLayout.appendChild(whitePanel);
+  } else {
+    gameLayout.appendChild(whitePanel);
+    gameLayout.appendChild(canvas);
+    gameLayout.appendChild(blackPanel);
+  }
+
+  // Re-link reserves and captured (because they are now re-created)
+  blackReserve = document.getElementById("blackReserve");
+  whiteReserve = document.getElementById("whiteReserve");
+  blackCaptured = document.getElementById("blackCaptured");
+  whiteCaptured = document.getElementById("whiteCaptured");
+
+  // Update game status
   statusP.textContent = `Turn: ${currentPlayer.charAt(0).toUpperCase() + currentPlayer.slice(1)}`;
   updateReserves();
   updateCaptured();
   drawBoard();
-  document.getElementById("gameCanvas").classList.add("loaded");
+  canvas.classList.add("loaded");
 
+  // Sounds and possible AI move
   playSound("sndSlideBoard");
   setTimeout(() => playSound("sndSlidePiece"), 300);
-
   maybeAIMove();
 };
 
@@ -501,3 +561,19 @@ if (undoBtn) {
 }
 
 canvas.onclick = handleClick;
+
+// Show/hide second player color when game mode is changed
+const player1ColorLabel = document.getElementById("player1ColorLabel");
+
+gameModeSelect.addEventListener("change", () => {
+  if (gameModeSelect.value === "2p") {
+    player2ColorContainer.style.display = "block";
+    player1ColorLabel.textContent = "Choose 1st Player Color:";
+  } else {
+    player2ColorContainer.style.display = "none";
+    player1ColorLabel.textContent = "Choose Your Color:";
+  }
+});
+
+// Apply the correct state when the page loads
+gameModeSelect.dispatchEvent(new Event('change'));
