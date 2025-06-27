@@ -390,7 +390,8 @@ function aiMove() {
     }
 
     if (placedTokens.black === maxTokens && placedTokens.white === maxTokens) {
-      phase = "movement";
+  phase = "movement";
+  selectedIndex = null;
     }
 
     switchPlayer();
@@ -411,29 +412,36 @@ function aiMove() {
     playSound("sndMove");
 
     if (checkMill(to, aiColor)) {
-      playSound("sndMill");
+  playSound("sndMill");
+
+  setTimeout(() => {
+    drawBoard(); // show AI's mill-forming move
+  }, 100); // brief delay to allow movement to be visible
+
+  setTimeout(() => {
+    const chosen = aiSmartCapture();
+    board[chosen] = null;
+    capturedTokens[playerColorSelect.value]++;
+    updateCaptured();
+    playSound("sndRemove");
+
+    drawBoard(); // show the removed token visually
+
+    const opponent = playerColorSelect.value;
+    const remaining = placedTokens[opponent] - capturedTokens[opponent];
+    if (placedTokens[opponent] === maxTokens && remaining < 3) {
       setTimeout(() => {
-        const chosen = aiSmartCapture();
-        board[chosen] = null;
-        capturedTokens[playerColorSelect.value]++;
-        updateCaptured();
-        playSound("sndRemove");
-
-        const opponent = playerColorSelect.value;
-        const remaining = placedTokens[opponent] - capturedTokens[opponent];
-        if (placedTokens[opponent] === maxTokens && remaining < 3) {
-          setTimeout(() => {
-            statusP.textContent = `${aiColor.toUpperCase()} WINS!`;
-            playSound("sndWin");
-          }, 300);
-          return;
-        }
-
-        switchPlayer();
-        drawBoard();
-      }, 400);
+        statusP.textContent = `${aiColor.toUpperCase()} WINS!`;
+        playSound("sndWin");
+      }, 400); // delay win so that removal animation is visible
       return;
     }
+
+    switchPlayer();
+    drawBoard();
+  }, 600); // gives time to show move + removal before win check
+  return;
+}
 
     switchPlayer();
     drawBoard();
