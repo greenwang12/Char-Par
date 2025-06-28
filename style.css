@@ -223,14 +223,14 @@ body {
 }
 
 .buttonGroup button {
-  background-color: #dce775;
+  background-color:#013220;
   border: none;
   padding: 10px 20px;
   font-size: 16px;
   font-weight: bold;
   border-radius: 10px;
   cursor: pointer;
-  color: #333;
+  color:white;
  min-width: 180px;
   height: 50px;                  /* ✅ Consistent height */
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
@@ -293,7 +293,7 @@ body {
 }
 
 .rules-float button {
-  background: #dce775;
+  background: #013220;
   border: none;
   padding: 8px 14px;
   font-size: 18px;
@@ -301,7 +301,7 @@ body {
   border-radius: 8px;
   cursor: pointer;
   box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-  color: #333;
+  color:white
 }
 
 .rules-panel {
@@ -330,7 +330,7 @@ body {
   top: 15px;
   left: 15px;
   z-index: 999;
-  background-color: #dce775;
+  background-color: #013220;
   border: none;
   border-radius: 50%;
   font-size: 22px;
@@ -342,5 +342,5 @@ body {
 
 
 .top-left-button:hover {
-  background-color: #cddc39;
+  background-color: #013220;
 }
