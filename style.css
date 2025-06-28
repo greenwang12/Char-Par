@@ -325,3 +325,23 @@ body {
 .rules-panel.hidden {
   display: none;
 }
+
+.top-left-button {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  z-index: 999;
+  background-color: #dce775;
+  border: none;
+  border-radius: 50%;
+  font-size: 22px;
+  padding: 10px 14px;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+  transition: background-color 0.3s ease;
+}
+
+
+.top-left-button:hover {
+  background-color: #cddc39;
+}

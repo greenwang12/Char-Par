@@ -458,6 +458,7 @@ startBtn.onclick = () => {
   const colorError = document.getElementById("colorError");
   colorError.textContent = "";
   colorError.style.display = "none";
+  document.getElementById("muteBtn").style.display = "block";
 
    gameMode = gameModeSelect.value;
   currentPlayer = playerColorSelect.value;
@@ -596,3 +597,12 @@ function toggleRules() {
   const panel = document.getElementById("rulesPanel");
   panel.classList.toggle("hidden");
 }
+
+const muteBtn = document.getElementById("muteBtn");
+muteBtn.style.display = "none"; // initially hidden
+
+muteBtn.onclick = () => {
+  muted = !muted;
+  muteBtn.textContent = muted ? "🔇" : "🔈";
+};
+
