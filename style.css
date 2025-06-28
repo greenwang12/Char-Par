@@ -87,11 +87,10 @@ body {
 }
 
 #gameCanvas {
-
   display: block;
   border: 6px solid #333;
   border-radius: 12px;
-  background-color: #103a1d; /* Dark green board */
+  background-color: #b4d44b; /* Dark green board */
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
   transition: opacity 0.8s ease, transform 0.8s ease;
   opacity: 0;
