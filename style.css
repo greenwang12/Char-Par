@@ -274,3 +274,54 @@ body {
   justify-content: center;
   gap: 8px;               /* spacing between label and select */
 }
+
+.error-message {
+  color: #ff4444;
+  font-size: 0.95rem;
+  margin-top: 8px;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.rules-float {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.rules-float button {
+  background: #dce775;
+  border: none;
+  padding: 8px 14px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+  color: #333;
+}
+
+.rules-panel {
+  margin-top: 10px;
+  background: #fff;
+  color: #333;
+  padding: 12px 18px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  width: 240px;
+  font-size: 14px;
+  text-align: left;
+}
+
+.rules-panel ul {
+  padding-left: 20px;
+  margin: 0;
+}
+
+.rules-panel.hidden {
+  display: none;
+}

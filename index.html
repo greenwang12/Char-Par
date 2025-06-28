@@ -30,7 +30,8 @@
     <option value="white">White</option>
     <option value="black">Black</option>
   </select>
-</div>
+ </div>
+   <p id="colorError" class="error-message" style="display:none;"></p>
       <button id="startBtn">Start Game</button>
     </div>
   </div>
@@ -39,6 +40,23 @@
     <div class="gameHeader">
       <h1 class="gameTitle">Char Par</h1>
       <p id="status">Turn: Black</p>
+      <!-- Rules Floating Panel -->
+<div class="rules-float">
+  <button id="toggleRules" onclick="toggleRules()">Rules</button>
+  <div id="rulesPanel" class="rules-panel hidden">
+    <h3>📜 Game Rules</h3>
+    <ul>
+      <li>Each player starts with 9 tokens.</li>
+      <li>Place tokens on empty points alternatively.</li>
+      <li>Form a mill (3 in a row) to capture opponent’s token.</li>
+      <li>After placing all tokens, move them to adjacent points.</li>
+      <li>If a player has only 3 tokens, they can fly anywhere.</li>
+      <li>Game ends when opponent has only 2 tokens or no moves.</li>
+      <li>The player who has more number of tokens wins.</li>
+    </ul>
+  </div>
+</div>
+
     </div>
 
     <div class="gameContainer">

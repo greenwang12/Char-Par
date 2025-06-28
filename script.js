@@ -455,6 +455,10 @@ function maybeAIMove() {
 }
 
 startBtn.onclick = () => {
+  const colorError = document.getElementById("colorError");
+  colorError.textContent = "";
+  colorError.style.display = "none";
+
    gameMode = gameModeSelect.value;
   currentPlayer = playerColorSelect.value;
 
@@ -464,8 +468,10 @@ startBtn.onclick = () => {
     const p2Color = player2ColorSelect.value;
 
     if (p1Color === p2Color) {
-      alert("Both players cannot have the same color. Please choose different colors.");
-      return;
+     const colorError = document.getElementById("colorError");
+    colorError.textContent = "Both players cannot have the same color. Please choose different colors.";
+     colorError.style.display = "block";
+     return;
     }
   }
 
@@ -585,3 +591,8 @@ gameModeSelect.addEventListener("change", () => {
 
 // Apply the correct state when the page loads
 gameModeSelect.dispatchEvent(new Event('change'));
+
+function toggleRules() {
+  const panel = document.getElementById("rulesPanel");
+  panel.classList.toggle("hidden");
+}
