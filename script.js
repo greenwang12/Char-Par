@@ -74,10 +74,16 @@ function drawBoard() {
     ctx.strokeRect(50 + offset, 50 + offset, 500 - 2 * offset, 500 - 2 * offset);
   });
 
-  ctx.strokeStyle = "#ccc";
+  ctx.strokeStyle = "#f0f0f0";
   ctx.lineWidth = 2;
-  ctx.beginPath(); ctx.moveTo(300, 50); ctx.lineTo(300, 550); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(50, 300); ctx.lineTo(550, 300); ctx.stroke();
+// Vertical segments (skip smallest square)
+ctx.beginPath(); ctx.moveTo(300, 50); ctx.lineTo(300, 140); ctx.stroke();   // Top segment
+ctx.beginPath(); ctx.moveTo(300, 460); ctx.lineTo(300, 550); ctx.stroke();  // Bottom segment
+
+// Horizontal segments (skip smallest square)
+ctx.beginPath(); ctx.moveTo(50, 300); ctx.lineTo(140, 300); ctx.stroke();   // Left segment
+ctx.beginPath(); ctx.moveTo(460, 300); ctx.lineTo(550, 300); ctx.stroke();  // Right segment
+
 
   layout.forEach(([x, y], index) => {
   // Base green filled circle with bold white border
